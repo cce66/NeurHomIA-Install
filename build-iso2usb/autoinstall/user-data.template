@@ -1,0 +1,66 @@
+#cloud-config
+autoinstall:
+  version: 1
+  locale: fr_FR.UTF-8
+  keyboard:
+    layout: fr
+  network:
+    network:
+      version: 2
+      ethernets:
+        all-eth:
+          match:
+            name: "en*"
+          dhcp4: true
+          optional: true
+  storage:
+    layout:
+      name: lvm
+  identity:
+    hostname: __HOSTNAME__
+    username: __USERNAME__
+    password: "__PASSWORD_HASH__"
+  ssh:
+    install-server: true
+    allow-pw: true
+  packages:
+    - curl
+    - git
+    - ufw
+    - whiptail
+    - language-pack-fr
+    - language-pack-fr-base
+    - wfrench
+    - fail2ban
+    - unattended-upgrades
+    - apt-transport-https
+    - ca-certificates
+    - gnupg
+    - lsb-release
+  late-commands:
+    - mkdir -p /target/opt/__PROJECT_LOWER__
+    - curtin in-target -- wget -O /opt/__PROJECT_LOWER__/firstboot.sh __FIRSTBOOT_URL__
+    - curtin in-target -- chmod +x /opt/__PROJECT_LOWER__/firstboot.sh
+    - |
+      cat <<'SERV' > /target/etc/systemd/system/__PROJECT_LOWER__-firstboot.service
+      [Unit]
+      Description=__PROJECT_NAME__ First Boot Configuration
+      After=network-online.target
+      Wants=network-online.target
+
+      [Service]
+      Type=oneshot
+      RemainAfterExit=yes
+      ExecStart=/opt/__PROJECT_LOWER__/firstboot.sh
+      StandardInput=tty
+      TTYPath=/dev/tty1
+      TTYReset=yes
+      TTYVHangup=yes
+      StandardOutput=journal+console
+      
+      [Install]
+      WantedBy=multi-user.target
+      SERV
+    - curtin in-target -- systemctl enable __PROJECT_LOWER__-firstboot.service
+    - curtin in-target -- systemctl daemon-reload
+  shutdown: reboot
