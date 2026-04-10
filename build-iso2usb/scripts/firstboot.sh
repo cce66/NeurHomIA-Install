@@ -392,7 +392,7 @@ EOF
 
 chmod +x /usr/local/bin/${PROJECT_NAME_LOWER}-{status,logs,restart,update}
 
-whiptail --msgbox "Utilitaires CLI installés :\n\n• ${PROJECT_NAME_LOWER}-status  — État du système\n• ${PROJECT_NAME_LOWER}-logs    — Journaux des services\n• ${PROJECT_NAME_LOWER}-restart — Redémarrer les services\n• ${PROJECT_NAME_LOWER}-update  — Mettre à jour ${PROJECT_NAME}" 14 60
+whiptail --msgbox "Utilitaires CLI installés :\n\n• ${PROJECT_NAME_LOWER}-status  — État du système\n• ${PROJECT_NAME_LOWER}-logs    — Journaux des services\n• ${PROJECT_NAME_LOWER}-restart — Redémarrer les services\n• ${PROJECT_NAME_LOWER}-update  — Mettre à jour ${PROJECT_NAME}" 16 60
 
 # ============================================
 #   12. FINALISATION
@@ -401,7 +401,7 @@ echo "=== Étape 12. FINALISATION"
 
 CURRENT_IP=$(get_ip)
 whiptail --title "Terminé" \
-         --msgbox "Configuration terminée !\n\nAdresse IP : $CURRENT_IP\nFuseau horaire : $SELECTED_TZ\n\nAccédez au dashboard : http://$CURRENT_IP:8080\n\nLe service de premier démarrage va maintenant se désactiver." 14 60
+         --msgbox "Configuration terminée !\n\nAdresse IP : $CURRENT_IP\nFuseau horaire : $SELECTED_TZ\n\nAccédez au dashboard : http://$CURRENT_IP:8080\n\nLe service de premier démarrage va maintenant se désactiver." 16 60
 
 systemctl disable "${SERVICE_NAME}"
 rm -f "/etc/systemd/system/${SERVICE_NAME}"
