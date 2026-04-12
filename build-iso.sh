@@ -112,10 +112,10 @@ PASSWORD_HASH=""
     if [ -n "$SUDO_USER" ]; then
         REAL_USER="$SUDO_USER"
         REAL_HOME=$(getent passwd "$SUDO_USER" | cut -d: -f6)
-        WORK_DIR="$REAL_HOME/${PROJECT_NAME_LOWER}-key"
+        WORK_DIR="$REAL_HOME/${PROJECT_NAME_LOWER}-install"
     else
         000_ask_sudo_password
-        WORK_DIR="$HOME/${PROJECT_NAME_LOWER}-key"
+        WORK_DIR="$HOME/${PROJECT_NAME_LOWER}-install"
     fi
     mkdir -p "$WORK_DIR"
     # Définir le dossier temporaire pour les templates autoinstall
