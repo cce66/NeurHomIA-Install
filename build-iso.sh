@@ -59,7 +59,7 @@ USERNAME="${PROJECT_NAME_LOWER}"
 DEFAULT_PASSWORD="${PROJECT_NAME_LOWER}"
 
 # URLs GitHub
-GITHUB_URL="https://raw.githubusercontent.com/${GITHUB_OWNER_NAME}/${PROJECT_NAME}-ISO2USB/main/build-iso2usb"
+GITHUB_URL="https://raw.githubusercontent.com/${GITHUB_OWNER_NAME}/${PROJECT_NAME}-Install/main/build-iso2usb"
 # URL du script firstboot.sh
 FIRSTBOOT_SCRIPT_URL="${GITHUB_URL}/scripts/firstboot.sh"
 # URL du dossier autoinstall (contenant user-data.template et meta-data)
